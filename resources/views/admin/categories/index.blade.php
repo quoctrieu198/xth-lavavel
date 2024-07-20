@@ -13,14 +13,13 @@
     @endif
     <table class="table">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Ten</th>
-                <th>Anh</th>
-                <th>Trang thai</th>
-                <th> Hanh dong</th>
-            </tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Ảnh</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
         </thead>
+
         <tbody>
             @foreach($data as $item)
                 <tr>
@@ -28,23 +27,25 @@
                     <td>{{$item->name}}</td>
                     <td>
                         <div style="width: 100px; height: 100px;">
-                            <img src="{{Storage::url($item->cover)}}" alt="" style="width: 100px; height: 100px;">
+                            <img src="{{Storage::url($item->cover)}}" style="max-width: 100%; max-height: 100%;" alt="">
                         </div>
                     </td>
                     <td>
-                        {!! $item->is_active ? '<span class="badge bg-success">Hoat dong </span>' : 'span class="badge bg-danger">Ko Hoat dong </span>' !!}
-                    <td>
+                        {!! $item->is_active ? '<span class="badge bg-success"> Hoạt động </span>' :
+                            ' <span class="badge bg-danger"> Không hoạt động </span>'!!}
+                    </td>
                     <td>
                         <a href="{{route('admin.categories.show', $item)}}">
-                            <button class="btn btn-info">Xem</button>
+                            <button class="btn btn-success">Xem</button>
                         </a>
                         <a href="{{route('admin.categories.edit', $item)}}">
-                            <button class="btn btn-success">Sua</button> </a>
-                            <form action="{{route('admin.categories.destroy', $item)}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Ban co chac muon xoa khong')">Xoa</button>
-                            </form>
+                            <button class="btn btn-warning">Sửa</button>
+                        </a>
+                        <form action="{{route('admin.categories.destroy', $item)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" >Xóa</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

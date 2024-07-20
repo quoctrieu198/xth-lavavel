@@ -54,7 +54,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-
         return view(self::PATH_VIEW. __FUNCTION__,compact('category'));
     }
 
