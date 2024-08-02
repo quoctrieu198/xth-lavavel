@@ -21,9 +21,11 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Danh sách sản phẩm</h1>
 
-        <a href="{{route('admin.products.create')}}">
-            <button class="btn btn-success">Them moi</button>
-        </a>
+        <div style="padding-bottom: 10px">
+            <a href="{{route('admin.products.create')}}" style="padding-bottom: 50px">
+                <button class="btn btn-success" >Thêm mới</button>
+            </a>
+        </div>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -79,13 +81,13 @@
                                             ' <span class="badge bg-danger"> Không hoạt động </span>'!!}
                                     </td>
                                     <td>
-                                        <a href="{{route('admin.products.show', $item)}}">
-                                            <button class="btn btn-success">Xem</button>
+                                        <a href="{{route('admin.products.show', $item)}}" style="padding-right: 5px">
+                                            <button class="btn btn-success ">Xem</button>
                                         </a>
                                         <a href="{{route('admin.products.edit', $item)}}">
                                             <button class="btn btn-warning">Sửa</button>
                                         </a>
-                                        <form action="{{route('admin.products.destroy', $item)}}" method="POST">
+                                        <form action="{{route('admin.products.destroy', $item)}}" method="POST" style="padding-top: 5px">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger" >Xóa</button>

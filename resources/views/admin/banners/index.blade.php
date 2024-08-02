@@ -1,9 +1,7 @@
 @extends('admin.layout.master')
-
 @section('title')
-    Danh sach danh muc
+    Danh sách banner
 @endsection
-
 @section('style-libs')
     <!-- Custom styles for this page -->
     <link href="{{asset('theme/admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
@@ -14,17 +12,17 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset('theme/admin/js/demo/datatables-demo.js')}}"></script>
+@endsection
 @section('content')
+
+    <!-- Begin Page Content -->
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Danh sách danh mục</h1>
-        @if(session('message'))
-            <h4>{{session('message')}}</h4>
-        @endif
+        <h1 class="h3 mb-2 text-gray-800">Danh sách Banner</h1>
 
         <div style="padding-bottom: 10px">
-            <a href="{{route('admin.categories.create')}}" style="padding-bottom: 20px">
+            <a href="{{route('admin.banners.create')}}" style="padding-bottom: 50px">
                 <button class="btn btn-success" >Thêm mới</button>
             </a>
         </div>
@@ -47,11 +45,13 @@
                         </thead>
                         <tfoot>
                         <tr>
+                        <tr>
                             <th>ID</th>
                             <th>Tên</th>
                             <th>Ảnh </th>
                             <th>Trạng thái</th>
                             <th>Hành Động</th>
+                        </tr>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -60,8 +60,8 @@
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>
-                                    <div style="width: 100px; height: 100px;">
-                                        <img src="{{Storage::url($item->cover)}}" style="max-width: 100%; max-height: 100%;" alt="">
+                                    <div style="width: 100px; height: 100px;  display: flex; align-items: center; justify-content: center; overflow: hidden; ">
+                                        <img src="{{Storage::url($item->img_banner)}}"  style="max-width: 100%; max-height: 100%; object-fit: cover;" alt="">
                                     </div>
                                 </td>
                                 <td>
@@ -69,13 +69,13 @@
                                         ' <span class="badge bg-danger"> Không hoạt động </span>'!!}
                                 </td>
                                 <td>
-                                    <a href="{{route('admin.categories.show', $item)}}">
-                                        <button class="btn btn-success">Xem</button>
+                                    <a href="{{route('admin.banners.show', $item)}}" style="padding-right: 5px">
+                                        <button class="btn btn-success ">Xem</button>
                                     </a>
-                                    <a href="{{route('admin.categories.edit', $item)}}">
+                                    <a href="{{route('admin.banners.edit', $item)}}">
                                         <button class="btn btn-warning">Sửa</button>
                                     </a>
-                                    <form action="{{route('admin.categories.destroy', $item)}}" method="POST" onsubmit="return confirmDelete()">
+                                    <form action="{{route('admin.banners.destroy', $item)}}" method="POST" style="padding-top: 5px" onsubmit="return confirmDelete()">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger" >Xóa</button>
@@ -90,5 +90,6 @@
         </div>
 
     </div>
-
+    <!-- /.container-fluid -->
 @endsection
+

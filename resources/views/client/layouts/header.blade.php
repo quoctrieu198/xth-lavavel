@@ -29,14 +29,31 @@
                     <div class="top-info-wrap text-end">
                         <ul class="my-account-container">
                             <li><a href="my-account.html">My account</a></li>
-                            <li><a href="cart.html">Cart</a></li>
+                            <li><a href="{{ url('/cart/list') }}">Cart</a></li>
                             <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
                         </ul>
+                        @if (Route::has('login'))
+                            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                                @auth
+                                    <form action="{{ route('logout') }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" style="background-color: #ffa500; color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 4px;" class="ml-4 font-semibold focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                            Logout
+                                        </button>
+                                    </form>
+                                @else
+                                    <a href="{{ route('login') }}" style="background-color: #ffa500; color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 4px;" class="font-semibold focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+                                    @if (Route::has('register'))
+                                        <a href="{{ route('register') }}" style="background-color: #ffa500; color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 4px;" class="ml-4 font-semibold focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                                    @endif
+                                @endauth
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
+
 
     </div>
     <!-- Header Top End -->
@@ -47,7 +64,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-4 col-5">
                     <div class="logo-area">
-                        <a href="index.html"><img src="{{asset('theme/client/assets/images/logo/olo.png')}}" alt=""></a>
+                        <a href="{{ url('/') }}"><img src="{{asset('theme/client/assets/images/logo/olo.png')}}"  alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -125,8 +142,7 @@
                                 </li>
                                 <li class="mini-cart-btns">
                                     <div class="cart-btns">
-                                        <a href="cart.html">View cart</a>
-                                        <a href="checkout.html">Checkout</a>
+                                        <a href="{{url('/cart/list')}}">View cart</a>
                                     </div>
                                 </li>
                             </ul>
@@ -148,12 +164,17 @@
                         <!--  Start Mainmenu Nav-->
                         <nav class="main-navigation text-center">
                             <ul>
-                                <li class="active"><a href="index.html">Home</a>
+                                <li class="active"><a href="{{ url('/') }}">Home</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/shop') }}">Shop <i class="fa fa-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        @foreach(App\Models\Category::query()->get() as $item)
+                                            <li><a href="{{ url('category/' . $item->id) }}">{{ $item->name }}</a></li>
+                                        @endforeach
+                                    </ul>
                                 </li>
 
-                                <li><a href="shop.html">Shop</a>
-
-                                </li>
                                 <li><a href="blog.html">Blog </a>
                                 </li>
 

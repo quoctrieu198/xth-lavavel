@@ -13,6 +13,8 @@ class ProductVariant extends Model
         'product_color_id',
         'product_size_id',
         'image',
-        'quantity'
+        'quantity',
+
     ];
+
 }

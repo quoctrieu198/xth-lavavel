@@ -29,59 +29,32 @@
             <div class="container">
                 <div class="row  product-details-inner">
                     <div class="col-lg-5 col-md-6">
-                        <!-- Product Details Left -->
-                        <div class="product-large-slider">
-                            <div class="pro-large-img img-zoom">
-                                <img src="{{asset('theme/client/assets/images/product/product-01.png')}}" alt="product-details" />
-                                <a href="{{asset('theme/client/assets/images/product/product-01.png')}}" data-fancybox="images"><i
-                                        class="fa fa-search"></i></a>
+                        @if($product->img_thumb.('products/'))
+                            <!-- Product Details Left -->
+                            <div class="product-large-slider">
+                                <div class="pro-large-img img-zoom">
+                                    <img src="{{\Illuminate\Support\Facades\Storage::url($product->img_thumb)}}" alt="product-details" />
+                                    <a href="{{\Illuminate\Support\Facades\Storage::url($product->img_thumb)}}" data-fancybox="images"><i
+                                            class="fa fa-search"></i></a>
+                                </div>
+
                             </div>
-                            <div class="pro-large-img img-zoom">
-                                <img src="{{asset('theme/client/assets/images/product/product-02.png')}}" alt="product-details" />
-                                <a href="{{asset('theme/client/assets/images/product/product-02.png')}}" data-fancybox="images"><i
-                                        class="fa fa-search"></i></a>
-                            </div>
-                            <div class="pro-large-img img-zoom">
-                                <img src="{{asset('theme/client/assets/images/product/product-03.png')}}" alt="product-details" />
-                                <a href="{{asset('theme/client/assets/images/product/product-03.png')}}" data-fancybox="images"><i
-                                        class="fa fa-search"></i></a>
-                            </div>
-                            <div class="pro-large-img img-zoom">
-                                <img src="{{asset('theme/client/assets/images/product/product-04.png')}}" alt="product-details" />
-                                <a href="{{asset('theme/client/assets/images/product/product-04.png')}}" data-fancybox="images"><i
-                                        class="fa fa-search"></i></a>
-                            </div>
-                            <div class="pro-large-img img-zoom">
-                                <img src="{{asset('theme/client/assets/images/product/product-05.png')}}" alt="product-details" />
-                                <a href="{{asset('theme/client/assets/images/product/product-05.png')}}" data-fancybox="images"><i
-                                        class="fa fa-search"></i></a>
+                            <div class="product-nav">
+                                <div class="pro-nav-thumb">
+                                    <img src="{{\Illuminate\Support\Facades\Storage::url($product->img_thumb)}}" alt="product-details" />
+                                </div>
                             </div>
 
-                        </div>
-                        <div class="product-nav">
-                            <div class="pro-nav-thumb">
-                                <img src="{{asset('theme/client/assets/images/product/product-01.png')}}" alt="product-details" />
-                            </div>
-                            <div class="pro-nav-thumb">
-                                <img src="{{asset('theme/client/assets/images/product/product-02.png')}}" alt="product-details" />
-                            </div>
-                            <div class="pro-nav-thumb">
-                                <img src="{{asset('theme/client/assets/images/product/product-03.png')}}" alt="product-details" />
-                            </div>
-                            <div class="pro-nav-thumb">
-                                <img src="{{asset('theme/client/assets/images/product/product-04.png')}}" alt="product-details" />
-                            </div>
-                            <div class="pro-nav-thumb">
-                                <img src="{{asset('theme/client/assets/images/product/product-05.png')}}" alt="product-details" />
-                            </div>
-                        </div>
+                        @else
+                            <img src="{{$product->img_thumb}}" alt="product-details" />
+                        @endif
                         <!--// Product Details Left -->
                     </div>
-
+                    <!--// Product Details Left -->
                     <div class="col-lg-7 col-md-6">
                         <div class="product-details-view-content">
                             <div class="product-info">
-                                <h3>BENYAR AKNIGHT Mens Watches</h3>
+                                <h3>{{$product->name   }}</h3>
                                 <div class="product-rating d-flex">
                                     <ul class="d-flex">
                                         <li><a href="#"><i class="icon-star"></i></a></li>
@@ -93,35 +66,47 @@
                                     <a href="#reviews">(<span class="count">1</span> customer review)</a>
                                 </div>
                                 <div class="price-box">
-                                    <span class="new-price">$70.00</span>
-                                    <span class="old-price">$78.00</span>
+                                    <span class="new-price">{{$product->price_sale}}</span>
+                                    <span class="old-price">{{$product->price}}</span>
                                 </div>
-                                <p>Thương hiệu BY BENYAR là cái tên nổi tiếng được rất nhiều khách hàng trên thế giới
-                                    chọn lựa. Sản phẩm BENYAR AKNIGHT MENS WATCHES EASY READ LUMINOUS, STAINLESS STEEL
-                                    QUARTZ WATCH FOR MEN WOMEN, FASHION CASUAL SPORT WRIST WATCH WITH WATERPROOF
-                                    CHRONOGRAPH DATE là sự lựa chọn hoàn hảo nếu bạn đang tìm mua một món cho riêng
-                                    mình.</p>
+                    {{--                     31/07/2024           đang làm dở đoạn này --}}
+                                <p>{{$product->description}}</p>
                                 <div class="select-opstion-box mb-20">
-                                    <h6 class="title mb-10">Color</h6>
-                                    <select id="color" class="color-select">
-                                        <option value="">Choose an option</option>
-                                        <option value="Blue" class="attached enabled">Blue</option>
-                                        <option value="Red" class="attached enabled">Red</option>
-                                        <option value="Yellow" class="attached enabled">Yellow</option>
-                                    </select>
-                                </div>
-
-                                <div class="single-add-to-cart">
-                                    <form action="#" class="cart-quantity d-flex">
-                                        <div class="quantity">
-                                            <div class="cart-plus-minus">
-                                                <input type="number" class="input-text" name="quantity" value="1"
-                                                       title="Qty">
-                                            </div>
+                                    <form action="{{route('cart.add')}}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                                        <div style="margin-bottom: 10px;">
+                                            <label class="form-check-label" style="display: block; margin-bottom: 5px;">Màu:</label>
+                                            @foreach($colors as $id=>$name)
+                                                <input type="radio" style="pointer-events: none; clip: rect(0,0,0,0); position: absolute; width: 20px; height: 20px;" class="btn-check" id="radio_color_{{$id}}" name="product_color_id" value="{{$id}}">
+                                                <label class="btn btn-light" for="radio_color_{{$id}}" style="padding: 5px 10px; font-size: 12px;">
+                                                    {{$name}}
+                                                </label>
+                                            @endforeach
                                         </div>
-                                        <button class="add-to-cart" type="submit">Add To Cart</button>
+                                        <div style="margin-bottom: 10px;">
+                                            <label class="form-check-label" style="display: block; margin-bottom: 5px;">Size:</label>
+                                            @foreach($sizes as $id=>$name)
+                                                <input type="radio" style="pointer-events: none; clip: rect(0,0,0,0); position: absolute; width: 20px; height: 20px;" class="btn-check" id="radio_size_{{$id}}" name="product_size_id" value="{{$id}}">
+                                                <label class="btn btn-light" for="radio_size_{{$id}}" style="padding: 5px 10px; font-size: 12px;">
+                                                    {{$name}}
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                        <div class="single-add-to-cart">
+                                                <div class="quantity" style="padding-bottom: 10px">
+                                                    <div class="cart-plus-minus">
+                                                        <label for="quantity" class="form-label">Số lượng: </label>
+                                                        <input type="number" class="input-text" name="quantity" required value="1"  title="Qty" style="width: 55px; height: 55px;  ">
+                                                    </div>
+                                                </div>
+                                            <button class="add-to-cart" type="submit">Thêm vào giỏ hàng</button>
+                                        </div>
+
                                     </form>
                                 </div>
+
+
                                 <ul class="single-add-actions">
                                     <li class="add-to-wishlist">
                                         <a href="wishlist.html" class="add_to_wishlist"><i class="icon-heart"></i> Add
@@ -172,29 +157,7 @@
                                 <div class="product_tab_content tab-pane active" id="description" role="tabpanel">
                                     <div class="product_description_wrap  mt-30">
                                         <div class="product_desc mb-30">
-                                            <p>【⌚ 100% HIGH QUALITY WATCHES】: We are providing classic watches for men
-                                                with 100% premium quality quartz movement. This watch has a simple and
-                                                elegant design, unique craftsmanship, giving a unique style and elegant
-                                                atmosphere, suitable for any occasion. Personalized glowing hands make
-                                                this watch even more elegant.
-                                                【⌚ WATER RESISTANT TO 50M】: Waterproof (50 meters), wash hands, rain, no
-                                                problem! Suitable for all kinds of business, leisure, indoor activities
-                                                or daily use. NOTE: Do not wear this watch while pressing any button in
-                                                the water or underwater activities such as prolonged diving.</p>
-
-                                            <p>【⌚ DURABLE AND COMFORTABLE】: The analog watch with quartz movement offers
-                                                a classy look. Have chronograph analog display and date window, hardened
-                                                mineral glass lens resists scratches. The strap is soft and comfortable
-                                                to wear.
-                                                【⌚ A PERFECT GIFT】: This versatile watch blends in with every occasion
-                                                be it formal or casual. Wear this watch on the go, from business,
-                                                leisure to indoor and outdoor activities or for daily use. The Benyar
-                                                wrist watch is a perfect gift for you and your loved ones.
-                                                【⌚ 100% SATISFACTION GUARANTEE】: Use our chronograph sports quartz watch
-                                                with no risk. We offer a 60-day money-back guarantee for any reason.2
-                                                year warranty for any quality-related issue. Customer satisfaction is
-                                                our first priority and we don’t compromise on the quality of the
-                                                material. Buy our waterproof wristwatch care-free.</p>
+                                            <p>{{$product->description}}</p>
                                         </div>
 
                                     </div>

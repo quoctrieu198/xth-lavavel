@@ -41,27 +41,23 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="product-title-input" class="form-label">Tên</label>
-                                <input type="text" class="form-control" id="product-title-input" name="name" placeholder="Enter product title">
+                                <input type="text" class="form-control"  name="name" placeholder="Enter product title">
                             </div>
                             <div class="mb-3">
                                 <label for="product-title-input" class="form-label">Giá</label>
-                                <input type="text" class="form-control" id="product-title-input" name="price" placeholder="Enter product title">
+                                <input type="text" class="form-control"  name="price" placeholder="Enter product title">
                             </div>
                             <div class="mb-3">
                                 <label for="product-title-input" class="form-label">Giá Sale</label>
-                                <input type="text" class="form-control" id="product-title-input" name="price_sale" placeholder="Enter product title">
+                                <input type="text" class="form-control"  name="price_sale" placeholder="Enter product title">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Mô tả sản phẩm</label>
-                                <div id="ckeditor-classic" name="description">
-                                    <ul>
-                                        <li>Full Sleeve</li>
-                                        <li>Cotton</li>
-                                        <li>All Sizes available</li>
-                                        <li>4 Different Color</li>
-                                    </ul>
-                                </div>
+                                <textarea id="ckeditor-classic" name="description" placeholder="Nhập mô tả " >
+                                </textarea>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -158,45 +154,45 @@
                     <div class="collapse show" id="collapseProductGallery">
                         <div class="card-body">
                             <div class="mb-4">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Màu</th>
-                                                <th>Size</th>
-                                                <th>Image</th>
-                                                <th>Số lượng</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php $amount = 5; @endphp
-                                            @for($index = 1; $index <= $amount ; $index++)
-                                            <tr>
-
-                                                <td>
-                                                    <select name="product_variants[{{$index}}][size]" id="" class="form-control">
-                                                        @foreach($sizes as $size_id => $size_name)
-                                                        <option value="{{$size_id}}">{{$size_name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <select name="product_variants[{{$index}}][color]" id="" class="form-control">
-                                                        @foreach($colors as $color_id => $color_name)
-                                                        <option value="{{$color_id}}">{{$color_name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="file" src="" name="product_variants[{{$index}}][image]" class="form-control">
-                                                </td>
-                                                <td>
-                                                    <input type="number" name="product_variants[{{$index}}][quantity]">
-                                                </td>
-                                            </tr>
-                                            @endfor
-                                        </tbody>
-                                    </table>
-                                <button class="btn btn-success">Thêm biến thể</button>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Size</th>
+                                        <th>Màu</th>
+                                        <th>Image</th>
+                                        <th>Số lượng</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="variants">
+                                    <tr class="variant-row">
+                                        <td>
+                                            <select name="product_variants[][size]" class="form-control">
+                                                @foreach($sizes as $size_id => $size_name)
+                                                    <option value="{{ $size_id }}">{{ $size_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="product_variants[][color]" class="form-control">
+                                                @foreach($colors as $color_id => $color_name)
+                                                    <option value="{{ $color_id }}">{{ $color_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="file" name="product_variants[][image]" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" name="product_variants[][quantity]" class="form-control">
+                                        </td>
+                                        <td>
+                                            <button type="button" class="remove-variant btn btn-danger">Xóa</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <button type="button" id="add-variant" class="btn btn-primary">Thêm Biến Thể</button>
                             </div>
                         </div>
                     </div>
@@ -205,7 +201,7 @@
 
                 <!--                        Button -->
                 <div class="d-flex justify-content-end mb-3">
-                    <button class="btn btn-success w-sm">Submit</button>
+                    <button type="submit" class="btn btn-success w-sm">Submit</button>
                 </div>
             </div>
             <!-- end left content    -->
@@ -263,5 +259,42 @@
         </div>
     </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        let variantIndex = 1;
+
+        $('#add-variant').click(function() {
+            const $lastRow = $('.variant-row').last();
+            const $newRow = $lastRow.clone();
+
+            $newRow.find('input, select').each(function() {
+                let name = $(this).attr('name');
+                name = name.replace(/\[\d*\]/, `[${variantIndex}]`); // Sửa để thay thế chỉ số số nguyên
+                $(this).attr('name', name);
+
+                // Đặt lại giá trị của các trường
+                if ($(this).attr('type') === 'file') {
+                    $(this).val('');
+                } else {
+                    $(this).val('');
+                }
+            });
+
+            $newRow.find('.remove-variant').off('click').on('click', function() {
+                $(this).closest('.variant-row').remove();
+            });
+
+            variantIndex++;
+            $('#variants').append($newRow);
+        });
+
+        $('#variants').on('click', '.remove-variant', function() {
+            $(this).closest('.variant-row').remove();
+        });
+    });
+</script>
+
+
 <!-- /.container-fluid -->
 @endsection

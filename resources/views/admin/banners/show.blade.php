@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 
 @section('title')
-    Chi tiet danh muc
+    Danh sách banner
 @endsection
 
 @section('content')
@@ -13,15 +13,15 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong>ID:</strong> {{$category->id}}</li>
-                    <li class="list-group-item"><strong>Tên:</strong> {{$category->name}}</li>
+                    <li class="list-group-item"><strong>ID:</strong> {{$banner->id}}</li>
+                    <li class="list-group-item"><strong>Tên:</strong> {{$banner->name}}</li>
                     <li class="list-group-item">
                         <strong>Ảnh:</strong>
                         <div style="width: 100px; height: 100px;">
-                            <img src="{{Storage::url($category->cover)}}" alt="" class="img-fluid" style="max-width: 100%; height: auto;">
+                            <img src="{{Storage::url($banner->img_banner)}}" alt="" class="img-fluid" style="max-width: 100%; height: auto;">
                         </div>
                     </li>
-                    <li class="list-group-item"><strong>Trạng thái:</strong> {{$category->is_active ? 'Hoạt động' : 'Không hoạt động'}}</li>
+                    <li class="list-group-item"><strong>Trạng thái:</strong> {{$banner->is_active ? 'Hoạt động' : 'Không hoạt động'}}</li>
                 </ul>
             </div>
         </div>
@@ -33,7 +33,7 @@
             </div>
             <div class="card-body">
                 <ul class="list-group">
-                    @foreach($category->toArray() as $key => $value)
+                    @foreach($banner->toArray() as $key => $value)
                         <li class="list-group-item"><strong>{{$key}}:</strong> {{$value}}</li>
                     @endforeach
                 </ul>

@@ -26,7 +26,7 @@
         Interface
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
+    <!-- Danh mục sản phẩm -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
            aria-expanded="true" aria-controls="collapseTwo">
@@ -41,8 +41,20 @@
             </div>
         </div>
     </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Quản lý danh mục</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Danh sách chức năng:</h6>
+                <a class="collapse-item" href="{{route('admin.order.index')}}">Danh sách</a></div>
+        </div>
+    </li>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
+    <!-- Nav Item Sản phẩm -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
            aria-expanded="true" aria-controls="collapseUtilities">
@@ -55,6 +67,22 @@
                 <h6 class="collapse-header">Danh sách chức năng:</h6>
                 <a class="collapse-item" href="{{route('admin.products.index')}}">Danh sách</a>
                 <a class="collapse-item" href="{{route('admin.products.create')}}">Thêm mới</a>
+            </div>
+        </div>
+    </li>
+   <!--  banner -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Quản lý Banner</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Danh sách chức năng:</h6>
+                <a class="collapse-item" href="{{route('admin.banners.index')}}">Danh sách</a>
+                <a class="collapse-item" href="{{route('admin.banners.create')}}">Thêm mới</a>
             </div>
         </div>
     </li>

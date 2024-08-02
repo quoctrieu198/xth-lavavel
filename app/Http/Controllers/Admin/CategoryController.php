@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::query()->latest('id')->paginate(5);
+        $data = Category::query()->latest('id')->get();
 //        dd($data);
         return view(self::PATH_VIEW. __FUNCTION__,compact('data'));
     }
@@ -89,6 +89,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+
         $category->delete();
         return back()->with('message','Xoa thanh cong');
     }

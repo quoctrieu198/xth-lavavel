@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('theme/admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     @yield('style-libs')
 </head>
 
@@ -94,6 +95,11 @@
 <script src="{{asset('theme/admin/js/demo/chart-pie-demo.js')}}"></script>
 
 <script src="https://kit.fontawesome.com/be9ed8669f.js" crossorigin="anonymous"></script>
+<script>
+    function confirmDelete() {
+        return confirm('Bạn có chắc muốn xóa không?');
+    }
+</script>
 
 @yield('script-libs')
 </body>

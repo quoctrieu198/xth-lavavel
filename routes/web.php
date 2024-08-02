@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Models\Banner;
 use App\Models\Home;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -16,30 +20,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    $products = Product::query()->limit(1)->get();
-//    return view('client.home.index', compact('products'));
-//});
-////Route::get('show', function () {
-////    return view('client.home.show');
-////});
-//Route::resource('home',Home::class);
 
-//Route::prefix('client')
-//    ->as('client.')
-//    ->group(function () {
-//        Route::prefix('home')
-//            ->as('home.')
-//            ->group(function () {
-//                Route::get('{id}/show',         [HomeController::class, 'show'])->name('show');
-//            });
-//    });
-Route::get('/', function () {
-    $products = Product::query()->limit(1)->get();
-    return view('client.home.index', compact('products'));
-});
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/shop', [HomeController::class, 'shop'])->name('home.shop');
+//Route::get('/cart', [HomeController::class, 'cart'])->name('home.cart');
 
 Route::prefix('client')->as('client.')->group(function () {
     Route::resource('home', HomeController::class);
 });
+
+//Chi tiet san pham
+Route::get('product/{slug}', [App\Http\Controllers\ProductCotroller::class, 'detail'])->name('product.detail');
+
+// Mua hàng
+Route::post('cart/add', [App\Http\Controllers\CartController::class, 'add'])->name('cart.add');
+Route::get('cart/list', [App\Http\Controllers\CartController::class, 'list'])->name('cart.list');
+Route::post('oder/add', [App\Http\Controllers\OrderController::class, 'add'])->name('oder.add');
+
+// dang ky
+Route::get('auth/register',[\App\Http\Controllers\Auth\RegisterController::class,'index'])->name('register');
+Route::post('auth/register',[\App\Http\Controllers\Auth\RegisterController::class,'register'])->name('register');
+
+//dang nhap
+Route::get('auth/login', [LoginController::class, 'index'])->name('login');
+Route::post('auth/login', [LoginController::class, 'login'])->name('login');
+Route::post('auth/logout', [LoginController::class, 'logout'])->name('logout'); // Đổi từ GET sang POST
+Route::get('auth/verify/{token}', [LoginController::class, 'verify'])->name('verify');
+
+
+
+// thu bao mat
+Route::get('/admin',function (){
+   return "Đây là admin";
+})->middleware('isAdmin');
+
+
+
+
 
