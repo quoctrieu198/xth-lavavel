@@ -30,44 +30,47 @@ Cart List
             <div class="col-12">
                 <div class="table-content table-responsive">
                     @foreach($productVariants as $item)
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="plantmore-product-thumbnail">Images</th>
-                                <th class="cart-product-name">Product</th>
-                                <th class="plantmore-product-price">Unit Price</th>
-                                <th class="plantmore-product-quantity">Quantity</th>
-                                <th class="plantmore-product-subtotal">Total</th>
-                                <th class="plantmore-product-remove">Remove</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="plantmore-product-thumbnail">
-                                        @if (str_contains($item->product_img_thumb,'products/'))
-                                        <img src="{{\Illuminate\Support\Facades\Storage::url($item->product_img_thumb)}}" alt="" style="width: 80px;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="plantmore-product-thumbnail">Images</th>
+                                    <th class="cart-product-name">Product</th>
+                                    <th class="plantmore-product-price">Unit Price</th>
+                                    <th class="plantmore-product-quantity">Quantity</th>
+                                    <th class="plantmore-product-subtotal">Total</th>
+                                    <th class="plantmore-product-remove">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="plantmore-product-thumbnail">
+                                        @if (str_contains($item->product_img_thumb, 'products/'))
+                                            <img src="{{\Illuminate\Support\Facades\Storage::url($item->product_img_thumb)}}"
+                                                alt="" style="width: 80px;">
                                         @else
                                             <img src="{{($item->product_img_thumb)}}" alt="" style="width: 80px;">
                                         @endif
-                                </td>
-                                <td class="plantmore-product-name">
-                                    <span>{{$item->product_name}}</span>
-                                    <span>Phân loại{{$item->variant_size_name}} x {{$item->variant_color_name}}</span>
-                                </td>
-                                <td class="plantmore-product-price"><span class="amount">{{$item->product_price_sale ?: $item->product_price}}</span>
-                                    <span class="text-gray" style="text-decoration: line-through">
-                                        {{$item->product_price_sale ? $item->product_price : ''}}
-                                    </span></td>
-                                <td class="plantmore-product-quantity">
-                                    <span>{{$item->quantity}}</span>
-                                </td>
-                                <td class="product-subtotal">
-                                    <span>{{$totalAmount}}</span>
-                                </td>
-                                <td class="plantmore-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                    <td class="plantmore-product-name">
+                                        <span>{{$item->product_name}}</span>
+                                        <span>Phân loại{{$item->variant_size_name}} x {{$item->variant_color_name}}</span>
+                                    </td>
+                                    <td class="plantmore-product-price"><span
+                                            class="amount">{{$item->product_price_sale ?: $item->product_price}}</span>
+                                        <span class="text-gray" style="text-decoration: line-through">
+                                            {{$item->product_price_sale ? $item->product_price : ''}}
+                                        </span>
+                                    </td>
+                                    <td class="plantmore-product-quantity">
+                                        <span>{{$item->quantity}}</span>
+                                    </td>
+                                    <td class="product-subtotal">
+                                        <span>{{$totalAmount}}</span>
+                                    </td>
+                                    <td class="plantmore-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     @endforeach
                 </div>
             </div>
@@ -98,13 +101,12 @@ Cart List
                                     <div class="col-lg-12">
                                         <p class="single-form-row">
                                             <label>Địa chỉ <span class="required">*</span></label>
-                                            <input type="text" placeholder="Địa chỉ của bạn"
-                                                name="user_address">
+                                            <input type="text" placeholder="Địa chỉ của bạn" name="user_address">
                                         </p>
                                     </div>
                                     <div class="col-lg-12">
                                         <p class="single-form-row">
-                                            <label>Số điện thoại  <span class="required">*</span></label>
+                                            <label>Số điện thoại <span class="required">*</span></label>
                                             <input type="text" name="user_phone">
                                         </p>
                                     </div>
@@ -128,13 +130,12 @@ Cart List
                                     <div class="col-lg-12">
                                         <p class="single-form-row">
                                             <label>Địa chỉ <span class="required">*</span></label>
-                                            <input type="text" placeholder="Địa chỉ của bạn"
-                                                   name="receiver_address">
+                                            <input type="text" placeholder="Địa chỉ của bạn" name="receiver_address">
                                         </p>
                                     </div>
                                     <div class="col-lg-12">
                                         <p class="single-form-row">
-                                            <label>Số điện thoại  <span class="required">*</span></label>
+                                            <label>Số điện thoại <span class="required">*</span></label>
                                             <input type="text" name="receiver_phone">
                                         </p>
                                     </div>
@@ -146,11 +147,14 @@ Cart List
                                     <div class="col-lg-6">
                                         <ul class="list-group">
                                             <li class="list-group-item">
-                                                <input class="form-check-input" type="radio" name="payment" id="cod" value="cod">
-                                                <label class="form-check-label" for="cod">Thanh toán khi nhận hàng</label>
+                                                <input class="form-check-input" type="radio" name="payment" id="cod"
+                                                    value="cod">
+                                                <label class="form-check-label" for="cod">Thanh toán khi nhận
+                                                    hàng</label>
                                             </li>
                                             <li class="list-group-item">
-                                                <input class="form-check-input" type="radio" name="payment" id="online" value="online">
+                                                <input class="form-check-input" type="radio" name="payment" id="online"
+                                                    value="online">
                                                 <label class="form-check-label" for="online">Thanh toán online</label>
                                             </li>
                                         </ul>
@@ -169,47 +173,49 @@ Cart List
                                     <div class="your-order-table table-responsive">
                                         <table>
                                             <thead>
-                                            <tr>
-                                                <th class="product-name">Sản phẩm</th>
-                                                <th class="product-total">Tổng</th>
-                                            </tr>
+                                                <tr>
+                                                    <th class="product-name">Sản phẩm</th>
+                                                    <th class="product-total">Tổng</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($productVariants as $item)
-                                                <tr class="cart_item">
-                                                    <td class="product-name">
-                                                        <span>{{$item->product_name}} x {{$item->quantity}}</span>
-                                                    </td>
-                                                    <td class="product-total">
-                                                        <span class="amount">{{$item->product_price_sale ?: $item->product_price}}</span>
-                                                        <span class="text-gray" style="text-decoration: line-through">
-                                                             {{$item->product_price_sale ? $item->product_price : ''}}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                                @foreach($productVariants as $item)
+                                                    <tr class="cart_item">
+                                                        <td class="product-name">
+                                                            <span>{{$item->product_name}} x {{$item->quantity}}</span>
+                                                        </td>
+                                                        <td class="product-total">
+                                                            <span
+                                                                class="amount">{{$item->product_price_sale ?: $item->product_price}}</span>
+                                                            <span class="text-gray" style="text-decoration: line-through">
+                                                                {{$item->product_price_sale ? $item->product_price : ''}}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                             <tfoot>
-                                            <tr class="cart-subtotal">
-                                                <th>Cart Subtotal</th>
-                                                <td><span class="amount">{{$totalAmount}}</span></td>
-                                            </tr>
-                                            <tr class="shipping">
-                                                <th>Shipping</th>
-                                                <td>
-                                                    <ul>
-                                                        <li>
-                                                            <input type="radio">
-                                                            <label>Free Shipping:</label>
-                                                        </li>
-                                                        <li></li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                            <tr class="order-total">
-                                                <th>Order Total</th>
-                                                <td><strong><span class="amount">{{$totalAmount}}</span></strong></td>
-                                            </tr>
+                                                <tr class="cart-subtotal">
+                                                    <th>Cart Subtotal</th>
+                                                    <td><span class="amount">{{$totalAmount}}</span></td>
+                                                </tr>
+                                                <tr class="shipping">
+                                                    <th>Shipping</th>
+                                                    <td>
+                                                        <ul>
+                                                            <li>
+                                                                <input type="radio">
+                                                                <label>Free Shipping:</label>
+                                                            </li>
+                                                            <li></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr class="order-total">
+                                                    <th>Order Total</th>
+                                                    <td><strong><span class="amount">{{$totalAmount}}</span></strong>
+                                                    </td>
+                                                </tr>
                                             </tfoot>
                                         </table>
 

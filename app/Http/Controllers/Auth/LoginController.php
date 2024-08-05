@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
     //
-    public function index() {
+    public function index()
+    {
         // Hien thi form login
         return view('client.auth.login');
     }
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         // Xử lý logic login
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -26,7 +28,14 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            /**
+             * @var User $user
+             */
+            $user = Auth::user();
+            if ($user->isAdmin()) {
+                return redirect()->route('home.index');
+            }
+            return redirect()->route('home.index');
         }
 
         return back()->withErrors([

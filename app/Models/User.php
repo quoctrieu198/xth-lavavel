@@ -10,9 +10,10 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+
     use HasApiTokens, HasFactory, Notifiable;
     const TYPE_ADMIN = 'admin';
-    const TYPE_USER = 'member';
+    const TYPE_MEMBER = 'member';
     /**
      * The attributes that are mass assignable.
      *
@@ -45,6 +46,12 @@ class User extends Authenticatable
     ];
     public function isAdmin()
     {
-        return $this->type === self::TYPE_ADMIN;
+        return $this->type == self::TYPE_ADMIN;
     }
+
+    public function isMember()
+    {
+        return $this->type == self::TYPE_MEMBER;
+    }
+
 }

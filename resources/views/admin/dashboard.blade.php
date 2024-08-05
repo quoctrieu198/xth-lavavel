@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 @section('title')
-    Dashboard
+    Dashboard admin
 @endsection
 @section('content')
         <!-- Main Content -->

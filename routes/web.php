@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MemberController;
+use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsMember;
 use App\Models\Banner;
 use App\Models\Home;
 use App\Models\Product;
@@ -50,9 +54,10 @@ Route::get('auth/verify/{token}', [LoginController::class, 'verify'])->name('ver
 
 
 // thu bao mat
-Route::get('/admin',function (){
-   return "Đây là admin";
-})->middleware('isAdmin');
+
+//Route::get('client',[HomeController::class,'dashboard'])->name('home.dashboard')->middleware(['auth',IsMember::class]);
+//Route::get('admin',[AdminController::class,'dashboard'])->name('admin.dashboard')->middleware(['auth',IsAdmin::class]);
+
 
 
 

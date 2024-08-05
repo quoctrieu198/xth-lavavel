@@ -1,4 +1,3 @@
-
 <!--  Header Start -->
 <header class="header">
 
@@ -31,24 +30,54 @@
                             <li><a href="my-account.html">My account</a></li>
                             <li><a href="{{ url('/cart/list') }}">Cart</a></li>
                             <li><a href="wishlist.html">Wishlist</a></li>
-                        </ul>
-                        @if (Route::has('login'))
-                            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
-                                @auth
+
+                            @php
+                                function getInitials($name)
+                                {
+                                    $nameParts = explode(' ', $name);
+                                    $initials = '';
+                                    foreach ($nameParts as $part) {
+                                        $initials .= strtoupper(substr($part, 0, 1));
+                                    }
+                                    return $initials;
+                                }
+                            @endphp
+
+                            @if (Auth::check())
+                                <li>
+                                    <h6 style="color: #ffffff;">Hi: {{ getInitials(Auth::user()->name) }}</h6>
+                                </li>
+                                @if (Auth::user()->type == 'admin') <!-- Kiểm tra nếu người dùng có type là 'admin' -->
+                                <li>
+                                    <a href="{{ route('admin.dashboard') }}" style="color: #ffffff; background-color: #007bff; padding: 8px 16px; border-radius: 4px;">Admin Dashboard</a>
+                                </li>
+                                @endif
+                                <li>
                                     <form action="{{ route('logout') }}" method="POST" class="inline">
                                         @csrf
-                                        <button type="submit" style="background-color: #ffa500; color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 4px;" class="ml-4 font-semibold focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                        <button type="submit"
+                                                style="background-color: #ffa500; color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 4px;"
+                                                class="font-semibold focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
                                             Logout
                                         </button>
                                     </form>
-                                @else
-                                    <a href="{{ route('login') }}" style="background-color: #ffa500; color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 4px;" class="font-semibold focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
-                                    @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" style="background-color: #ffa500; color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 4px;" class="ml-4 font-semibold focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                                    @endif
-                                @endauth
-                            </div>
-                        @endif
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{ route('login') }}"
+                                       style="background-color: #ffa500; color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 4px;"
+                                       class="font-semibold focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+                                </li>
+                                @if (Route::has('register'))
+                                    <li>
+                                        <a href="{{ route('register') }}"
+                                           style="background-color: #ffa500; color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 4px;"
+                                           class="ml-4 font-semibold focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                                    </li>
+                                @endif
+                            @endif
+                        </ul>
+
                     </div>
                 </div>
             </div>
@@ -64,7 +93,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-4 col-5">
                     <div class="logo-area">
-                        <a href="{{ url('/') }}"><img src="{{asset('theme/client/assets/images/logo/olo.png')}}"  alt=""></a>
+                        <a href="{{ url('/') }}"><img src="{{asset('theme/client/assets/images/logo/olo.png')}}"
+                                alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -107,7 +137,8 @@
                             <ul class="mini-cart">
                                 <li class="cart-item">
                                     <div class="cart-image">
-                                        <a href="product-details.html"><img alt="" src="{{asset('theme/client/assets/images/product/product-02.png')}}"></a>
+                                        <a href="product-details.html"><img alt=""
+                                                src="{{asset('theme/client/assets/images/product/product-02.png')}}"></a>
                                     </div>
                                     <div class="cart-title">
                                         <a href="product-details.html">
@@ -122,7 +153,8 @@
                                 </li>
                                 <li class="cart-item">
                                     <div class="cart-image">
-                                        <a href="product-details.html"><img alt="" src="{{asset('theme/client/assets/images/product/product-03.png')}}"></a>
+                                        <a href="product-details.html"><img alt=""
+                                                src="{{asset('theme/client/assets/images/product/product-03.png')}}"></a>
                                     </div>
                                     <div class="cart-title">
                                         <a href="product-details.html">
@@ -193,7 +225,8 @@
                 </div>
 
                 <div class="col-5 col-md-6 d-block d-lg-none">
-                    <div class="logo"><a href="index.html"><img src="{{asset('theme/client/assets/images/logo/logo.png')}}" alt=""></a></div>
+                    <div class="logo"><a href="index.html"><img
+                                src="{{asset('theme/client/assets/images/logo/logo.png')}}" alt=""></a></div>
                 </div>
 
 
@@ -209,7 +242,8 @@
                             <ul class="mini-cart">
                                 <li class="cart-item">
                                     <div class="cart-image">
-                                        <a href="product-details.html"><img alt="" src="{{asset('theme/client/assets/images/product/product-02.png')}}"></a>
+                                        <a href="product-details.html"><img alt=""
+                                                src="{{asset('theme/client/assets/images/product/product-02.png')}}"></a>
                                     </div>
                                     <div class="cart-title">
                                         <a href="product-details.html">
@@ -224,7 +258,8 @@
                                 </li>
                                 <li class="cart-item">
                                     <div class="cart-image">
-                                        <a href="product-details.html"><img alt="" src="{{asset('theme/client/assets/images/product/product-03.png')}}"></a>
+                                        <a href="product-details.html"><img alt=""
+                                                src="{{asset('theme/client/assets/images/product/product-03.png')}}"></a>
                                     </div>
                                     <div class="cart-title">
                                         <a href="product-details.html">
@@ -253,7 +288,8 @@
 
                         <div class="mobile-menu-btn d-block d-lg-none">
                             <div class="off-canvas-btn">
-                                <a href="#"><img src="{{asset('theme/client/assets/images/icon/bg-menu.png')}}" alt=""></a>
+                                <a href="#"><img src="{{asset('theme/client/assets/images/icon/bg-menu.png')}}"
+                                        alt=""></a>
                             </div>
                         </div>
 
@@ -310,8 +346,10 @@
                                     <li class="mega-title has-children"><a href="#">Product Details</a>
                                         <ul class="dropdown">
                                             <li><a href="product-details.html">Single Product Details</a></li>
-                                            <li><a href="variable-product-details.html">Variable Product Details</a></li>
-                                            <li><a href="affiliate-product-details.html">affiliatel Product Details</a></li>
+                                            <li><a href="variable-product-details.html">Variable Product Details</a>
+                                            </li>
+                                            <li><a href="affiliate-product-details.html">affiliatel Product Details</a>
+                                            </li>
                                             <li><a href="gallery-product-details.html">Gallery Product Details</a></li>
                                         </ul>
                                     </li>

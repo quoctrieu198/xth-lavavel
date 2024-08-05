@@ -4,39 +4,26 @@
 @endsection
 @section('style-libs')
     <link href="{{asset('theme/admin/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-
-    <!-- Plugins css -->
     <link href="{{asset('theme/admin/libs/dropzone/dropzone.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('script-libs')
-    <!-- ckeditor -->
     <script src="{{asset('theme/admin/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js')}}"></script>
-    <!-- dropzone js -->
     <script src="{{asset('theme/admin/libs/dropzone/dropzone-min.js')}}"></script>
-
     <script src="{{asset('theme/admin/js/create-product.init.js')}}"></script>
 @endsection
 @section('content')
-
-    <!-- Begin Page Content -->
     <div class="container-fluid">
-        <!-- Page Heading -->
         <h1 class="h3 mb-4 text-gray-800">Cập nhật sản phẩm</h1>
-        <!--  Page main content   -->
-        <!--   Main product information             -->
         <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="row">
-                <!--   left content-->
                 <div class="col-xl-8 col-lg-7">
                     <div class="card shadow mb-4">
-                        <!-- Main product information -->
                         <a href="#collapseProductInfo" class="d-block card-header py-3" data-toggle="collapse"
                            role="button" aria-expanded="true" aria-controls="collapseProductInfo">
                             <h6 class="m-0 font-weight-bold text-primary">Thông tin sản phẩm chính</h6>
                         </a>
-                        <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseProductInfo">
                             <div class="card-body">
                                 <div class="mb-3">
@@ -59,14 +46,11 @@
                         </div>
                     </div>
 
-                    <!-- Product Image -->
                     <div class="card shadow mb-4">
-                        <!-- Card Header - Accordion -->
                         <a href="#collapseProductImage" class="d-block card-header py-3" data-toggle="collapse"
                            role="button" aria-expanded="true" aria-controls="collapseProductImage">
                             <h6 class="m-0 font-weight-bold text-primary">Hình ảnh sản phẩm</h6>
                         </a>
-                        <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseProductImage">
                             <div class="card-body">
                                 <div class="mb-4">
@@ -101,14 +85,11 @@
                         </div>
                     </div>
 
-                    <!-- Product Variants -->
                     <div class="card shadow mb-4">
-                        <!-- Card Header - Accordion -->
                         <a href="#collapseProductVariants" class="d-block card-header py-3" data-toggle="collapse"
                            role="button" aria-expanded="true" aria-controls="collapseProductVariants">
                             <h6 class="m-0 font-weight-bold text-primary">Biến thể sản phẩm</h6>
                         </a>
-                        <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseProductVariants">
                             <div class="card-body">
                                 <div class="mb-4">
@@ -126,27 +107,27 @@
                                         @foreach($product->variants as $variant)
                                             <tr class="variant-row">
                                                 <td>
-                                                    <select name="product_variants[][size]" class="form-control">
+                                                    <select name="product_variants[{{ $loop->index }}][size]" class="form-control">
                                                         @foreach($sizes as $size_id => $size_name)
                                                             <option value="{{ $size_id }}" {{ $variant->product_size_id == $size_id ? 'selected' : '' }}>{{ $size_name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select name="product_variants[][color]" class="form-control">
+                                                    <select name="product_variants[{{ $loop->index }}][color]" class="form-control">
                                                         @foreach($colors as $color_id => $color_name)
                                                             <option value="{{ $color_id }}" {{ $variant->product_color_id == $color_id ? 'selected' : '' }}>{{ $color_name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="file" name="product_variants[][image]" class="form-control">
+                                                    <input type="file" name="product_variants[{{ $loop->index }}][image]" class="form-control">
                                                     @if($variant->image)
                                                         <img src="{{ Storage::url($variant->image) }}" width="50" alt="Hình ảnh biến thể">
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="product_variants[][quantity]" class="form-control" value="{{ $variant->quantity }}">
+                                                    <input type="number" name="product_variants[{{ $loop->index }}][quantity]" class="form-control" value="{{ $variant->quantity }}">
                                                 </td>
                                                 <td>
                                                     <button type="button" class="remove-variant btn btn-danger">Xóa</button>
@@ -161,36 +142,30 @@
                         </div>
                     </div>
 
-                    <!-- Button -->
                     <div class="d-flex justify-content-end mb-3">
                         <button type="submit" class="btn btn-success w-sm">Cập nhật</button>
                     </div>
                 </div>
-                <!-- end left content -->
 
-                <!-- right content -->
                 <div class="col-xl-4 col-lg-5">
                     <div class="card shadow mb-4">
-                        <!-- Card Header - Accordion -->
                         <a href="#collapseStatus" class="d-block card-header py-3" data-toggle="collapse"
                            role="button" aria-expanded="true" aria-controls="collapseStatus">
                             <h6 class="m-0 font-weight-bold text-primary">Trạng thái sản phẩm</h6>
                         </a>
-                        <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseStatus">
                             <div class="card-body">
                                 <label for="choices-category-input" class="form-label">Danh mục sản phẩm</label>
-{{--                                <select class="form-control" aria-label="Default select example" id="choices-category-input" name="category_id">--}}
-{{--                                    @foreach($categories as $id => $name)--}}
-{{--                                        <option value="{{ $id }}" {{ $product->category_id == $id ? 'selected' : '' }}>{{ $name }}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
+                                <select class="form-control" aria-label="Default select example" id="choices-category-input" name="category_id">
+                                    @foreach($categories as $id => $name)
+                                        <option value="{{ $id }}" {{ $product->category_id == $id ? 'selected' : '' }}>{{ $name }}</option>
+                                    @endforeach
+                                </select>
                                 <label for="choices-publish-status-input" class="form-label">Trạng thái</label>
                                 <select class="form-control form-select-lg mb-3" id="choices-publish-status-input" aria-label="Default select example" name="is_active">
                                     <option value="1" {{ $product->is_active == 1 ? 'selected' : '' }}>Hoạt động</option>
                                     <option value="2" {{ $product->is_active == 2 ? 'selected' : '' }}>Không hoạt động</option>
                                 </select>
-                                <!-- loại sản phẩm -->
                                 <label for="choices-publish-type-input" class="form-label">Loại sản phẩm</label>
                                 @php
                                     $types = [
@@ -207,14 +182,12 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <!-- mã sản phẩm -->
                                 <label for="choices-publish-type-input" class="form-label">Mã sản phẩm</label>
                                 <input type="text" class="form-control" name="sku" value="{{ $product->sku }}">
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- end right content -->
             </div>
         </form>
     </div>
@@ -222,7 +195,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            let variantIndex = 1;
+            let variantIndex = {{ $product->variants->count() }};
 
             $('#add-variant').click(function() {
                 const $lastRow = $('.variant-row').last();
@@ -230,16 +203,12 @@
 
                 $newRow.find('input, select').each(function() {
                     let name = $(this).attr('name');
-                    name = name.replace(/\[\d*\]/, `[${variantIndex}]`); // Sửa để thay thế chỉ số số nguyên
+                    name = name.replace(/\[\d+\]/, `[${variantIndex}]`);
                     $(this).attr('name', name);
-
-                    // Đặt lại giá trị của các trường
-                    if ($(this).attr('type') === 'file') {
-                        $(this).val('');
-                    } else {
-                        $(this).val('');
-                    }
+                    $(this).val('');
                 });
+
+                $newRow.find('img').remove();
 
                 $newRow.find('.remove-variant').off('click').on('click', function() {
                     $(this).closest('.variant-row').remove();
@@ -254,7 +223,4 @@
             });
         });
     </script>
-
-
-    <!-- /.container-fluid -->
 @endsection

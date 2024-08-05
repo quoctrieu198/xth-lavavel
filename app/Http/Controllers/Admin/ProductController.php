@@ -121,7 +121,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view(self::PATH_VIEW . __FUNCTION__ , compact('product'));
+        $categories = Category::query()->pluck('name', 'id')->all();
+        $sizes = ProductSize::query()->pluck('name', 'id')->all();
+        $colors = ProductColor::query()->pluck('name', 'id')->all();
+        return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'categories', 'sizes', 'colors'));
     }
 
     /**
@@ -129,15 +132,20 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        // Kiểm tra tất cả dữ liệu nhận được từ request
+//        dd($request->all());
+
         $data = $request->except(['product_variants', 'img_thumb', 'product_galleries']);
         $data['is_best_sale'] = $request->has('is_best_sale') ? 1 : 0;
         $data['is_40_sale'] = $request->has('is_40_sale') ? 1 : 0;
         $data['is_hot_online'] = $request->has('is_hot_online') ? 1 : 0;
         $data['slug'] = Str::slug($data['name'] . '-' . $data['sku']);
 
+        // Kiểm tra dữ liệu sau khi xử lý
+//        dd($data);
+
         // Xử lý file img_thumb
         if ($request->hasFile('img_thumb')) {
-            // Xóa ảnh cũ nếu có
             if ($product->img_thumb) {
                 Storage::delete($product->img_thumb);
             }
@@ -156,6 +164,9 @@ class ProductController extends Controller
             ];
         }
 
+        // Kiểm tra dữ liệu variant
+//        dd($dataProVariants);
+
         // Xử lý dữ liệu gallery
         $listProGalleries = $request->input('product_galleries', []);
         $dataProGalleries = [];
@@ -166,6 +177,9 @@ class ProductController extends Controller
                 ];
             }
         }
+
+        // Kiểm tra dữ liệu gallery
+//        dd($dataProGalleries);
 
         try {
             DB::beginTransaction();

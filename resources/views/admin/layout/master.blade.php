@@ -19,89 +19,95 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('theme/admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     @yield('style-libs')
 </head>
 
 <body id="page-top">
 
-<!-- Page Wrapper -->
-<div id="wrapper">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-    <!-- Sidebar -->
-    @include('admin.layout.sidebar')
-    <!-- End of Sidebar -->
+        <!-- Sidebar -->
+        @include('admin.layout.sidebar')
+        <!-- End of Sidebar -->
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
 
                 <!-- Topbar -->
-                    @include('admin.layout.header')
+                @include('admin.layout.header')
                 <!-- End of Topbar -->
 
-                    @yield('content')
+                @yield('content')
             </div>
-        <!-- Footer -->
-        @include('admin.layout.footer')
-        <!-- End of Footer -->
+            <!-- Footer -->
+            @include('admin.layout.footer')
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Page Wrapper -->
 
-</div>
-<!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="{{ route('logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">
+                            Logout
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Bootstrap core JavaScript-->
-<script src="{{asset('theme/admin/vendor/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('theme/admin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{asset('theme/admin/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('theme/admin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="{{asset('theme/admin/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{asset('theme/admin/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
-<!-- Custom scripts for all pages-->
-<script src="{{asset('theme/admin/js/sb-admin-2.min.js')}}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{{asset('theme/admin/js/sb-admin-2.min.js')}}"></script>
 
-<!-- Page level plugins -->
-<script src="{{asset('theme/admin/vendor/chart.js/Chart.min.js')}}"></script>
+    <!-- Page level plugins -->
+    <script src="{{asset('theme/admin/vendor/chart.js/Chart.min.js')}}"></script>
 
-<!-- Page level custom scripts -->
-<script src="{{asset('theme/admin/js/demo/chart-area-demo.js')}}"></script>
-<script src="{{asset('theme/admin/js/demo/chart-pie-demo.js')}}"></script>
+    <!-- Page level custom scripts -->
+    <script src="{{asset('theme/admin/js/demo/chart-area-demo.js')}}"></script>
+    <script src="{{asset('theme/admin/js/demo/chart-pie-demo.js')}}"></script>
 
-<script src="https://kit.fontawesome.com/be9ed8669f.js" crossorigin="anonymous"></script>
-<script>
-    function confirmDelete() {
-        return confirm('Bạn có chắc muốn xóa không?');
-    }
-</script>
+    <script src="https://kit.fontawesome.com/be9ed8669f.js" crossorigin="anonymous"></script>
+    <script>
+        function confirmDelete() {
+            return confirm('Bạn có chắc muốn xóa không?');
+        }
+    </script>
 
-@yield('script-libs')
+    @yield('script-libs')
 </body>
 
 </html>
